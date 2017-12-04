@@ -1,0 +1,16 @@
+#!/bin/sh
+
+cat > /etc/stunnel/stunnel.conf << EOF
+client = yes
+foreground = yes
+setuid = stunnel
+setgid = stunnel
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+[default]
+accept = ${ACCEPT}
+connect = ${CONNECT}
+EOF
+
+exec stunnel "$@"
